@@ -1,11 +1,12 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import ControlList from './containers/ControlList'
 
 function App() {
   return (
-    <Container>
-      Votre code ici!
-    </Container>
+    <div>
+      <h1>DEVELOPPERS</h1> 
+      <ControlList />
+    </div>
   );
 }
 
