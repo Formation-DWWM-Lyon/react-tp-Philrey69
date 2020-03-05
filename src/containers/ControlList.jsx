@@ -8,17 +8,31 @@ export default class ControlList extends Component {
 
   state = {
     data: null,
-  }
+  };
+
+
+
 
   componentDidMount = () => {
     console.log('ok');
+    this.fetch(1);
 
-    Axios.get('https://randomuser.me/api/?page=1&results=10&seed=abc&nat=fr')
+  }
+
+  fetch = (page) => {
+    console.log("page " + page)
+    if (!page || page === 0) {
+      page = 1
+    }
+
+    Axios.get(`https://randomuser.me/api/?page=${page}&results=10&seed=abc&nat=fr`)
       .then(response => this.setState({ data: response.data }))
       .catch(error => console.error(error));
+
   }
 
   render = () => {
+
     const { data } = this.state;
     console.log(data)
 
@@ -46,7 +60,13 @@ export default class ControlList extends Component {
               <ListGroupItem key={index}>{item.name.title} {item.name.first} {item.name.last} </ListGroupItem>
             )}
           </ListGroup>
-          <Button variant="primary">Refresh</Button>
+          <Button variant="primary" onClick={(e) => this.fetch(data.info.page - 1)}>
+            Prev
+            </Button>
+          <Button variant="primary" onClick={(e) => this.fetch(data.info.page + 1)}>
+            Next
+            </Button>
+            <p> Page : {data.info.page}</p>
         </div>
       )
     }
