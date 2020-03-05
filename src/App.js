@@ -6,13 +6,13 @@ import User from './components/User';
 function App() {
   return (
     <div>
-      <h1>DEVELOPPERS</h1>
+      <h1 text-align="center">DEVELOPPERS</h1>
       <ControlList />
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Switch>
           <Route exact path="/user" component={User} />
         </Switch>
-      </BrowserRouter>
+      </BrowserRouter> */}
     </div>
   );
 }

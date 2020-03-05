@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
 import Axios from 'axios';
-import { ListGroup, ListGroupItem, Button, Card, CardGroup, CardDeck, Row, Col } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Button, Card, Row, Col } from 'react-bootstrap';
 import Loader from 'react-loader-spinner';
-import { Link } from 'react-router-dom';
 import User from '../components/User';
 
 export default class ControlList extends Component {
 
   state = {
     data: null,
+    clickOk: false
   };
 
   componentDidMount = () => {
@@ -30,12 +30,13 @@ export default class ControlList extends Component {
   }
 
 
-  checkItem = (event) => {
+  checkItem = (event, page) => {
+    const { data } = this.state;
+    console.log(this.props)
     console.log(event);
-    return (
-      <User />
-    );
-
+    console.log (page);
+    console.log(data);
+    this.setState({clickOk: true});
   }
 
   render = () => {
@@ -43,12 +44,19 @@ export default class ControlList extends Component {
     const { data } = this.state;
     console.log(data)
 
+    if (this.state.clickOk) {
+      console.log("essai d'aller vers user.....")
+      // this.setState({clickOk: false});
+      return (
+        <User {...data } />
+      );
+    }
 
     if (!data) {
       return (
         <div className="text-center">
           <Loader
-            type="Puff"
+            type="BallTriangle"
             color="#00BFFF"
             height={100}
             width={100}
@@ -67,8 +75,6 @@ export default class ControlList extends Component {
             <Row className="justify-content-md-center">
               {data.results.map((item, index) =>
                 <ListGroupItem key={index} className="card-list">
-                  {/* <CardDeck> */}
-                  {/* <Card style={{ width: '15rem' }}> */}
                   <Col sm lg="20" >
                     <Card >
                       <Card.Body>
@@ -76,14 +82,13 @@ export default class ControlList extends Component {
                         <Card.Text>
                           {item.location.city}
                         </Card.Text>
-                        <img src={item.picture.thumbnail} alt="new"></img>
-                        <Button variant="primary" type="submit" name={`key${index}`} onClick={(e) => this.checkItem(index)}>Details</Button>
+                        <img src={item.picture.medium} alt="new"></img>
+                        <Button variant="primary" type="submit" name={`key${index}`} onClick={(e) => this.checkItem(index, data.info.page)}>Details</Button>
                       </Card.Body>
                     </Card>
-              </Col>
-                    {/* </CardDeck> */}
-                  </ListGroupItem>
-                  )}
+                  </Col>
+                </ListGroupItem>
+              )}
             </Row>
           </ListGroup>
 
