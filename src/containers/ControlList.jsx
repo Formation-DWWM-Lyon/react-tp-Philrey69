@@ -10,13 +10,9 @@ export default class ControlList extends Component {
     data: null,
   };
 
-
-
-
   componentDidMount = () => {
     console.log('ok');
     this.fetch(1);
-
   }
 
   fetch = (page) => {
@@ -57,7 +53,12 @@ export default class ControlList extends Component {
         <div>
           <ListGroup>
             {data.results.map((item, index) =>
-              <ListGroupItem key={index}>{item.name.title} {item.name.first} {item.name.last} </ListGroupItem>
+              <ListGroupItem key={index}>
+                {item.name.title} {item.name.first} {item.name.last} 
+                <img src={item.picture.thumbnail} alt="new"></img> 
+                {item.location.city}
+
+              </ListGroupItem>
             )}
           </ListGroup>
           <Button variant="primary" onClick={(e) => this.fetch(data.info.page - 1)}>
@@ -65,6 +66,9 @@ export default class ControlList extends Component {
             </Button>
           <Button variant="primary" onClick={(e) => this.fetch(data.info.page + 1)}>
             Next
+            </Button>
+            <Button variant="primary" onClick={(e) => this.fetch(1)}>
+            HOME
             </Button>
             <p> Page : {data.info.page}</p>
         </div>
