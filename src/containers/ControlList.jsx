@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Axios from 'axios';
-import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Button, Card, CardGroup, CardDeck } from 'react-bootstrap';
 import Loader from 'react-loader-spinner';
 
 export default class ControlList extends Component {
@@ -26,6 +26,7 @@ export default class ControlList extends Component {
       .catch(error => console.error(error));
 
   }
+
 
   render = () => {
 
@@ -54,23 +55,34 @@ export default class ControlList extends Component {
           <ListGroup>
             {data.results.map((item, index) =>
               <ListGroupItem key={index}>
-                {item.name.title} {item.name.first} {item.name.last} 
-                <img src={item.picture.thumbnail} alt="new"></img> 
-                {item.location.city}
-
+                <CardDeck>
+                {/* <Card style={{ width: '15rem' }}> */}
+                  <Card>
+                  <Card.Body>
+                    <Card.Title> {item.name.title} {item.name.first} {item.name.last}</Card.Title>
+                    <Card.Text>
+                      {item.location.city}
+                    </Card.Text>
+                <img src={item.picture.thumbnail} alt="new"></img>
+                    <Button variant="primary" type="submit">Details</Button>
+                  </Card.Body>
+                </Card>
+                </CardDeck>
               </ListGroupItem>
             )}
           </ListGroup>
+
           <Button variant="primary" onClick={(e) => this.fetch(data.info.page - 1)}>
             Prev
             </Button>
           <Button variant="primary" onClick={(e) => this.fetch(data.info.page + 1)}>
             Next
             </Button>
-            <Button variant="primary" onClick={(e) => this.fetch(1)}>
+          <Button variant="primary" onClick={(e) => this.fetch(1)}>
             HOME
             </Button>
-            <p> Page : {data.info.page}</p>
+
+          <p> Page : {data.info.page}</p>
         </div>
       )
     }

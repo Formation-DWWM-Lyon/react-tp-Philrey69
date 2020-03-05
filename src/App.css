@@ -1,0 +1,13 @@
+
+  .card-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+  }
+
+  .boutons {
+    display:flex;
+    justify-content: space-around;
+  } 
+
+  
